@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { buscarNoticias } from "../api/noticias"; // ✅ nova importação
+import { buscarNoticias } from "../api/noticias"; 
 
 interface Noticia {
   title: string;
@@ -26,7 +26,7 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 px-6 py-10">
-      {/* Hero */}
+      
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Atividades */}
+      
       <section>
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
           💼 Atividades de Bem-Estar no Trabalho
@@ -97,7 +97,7 @@ export default function Home() {
             {
               title: "Alongamento de Escrivaninha",
               emoji: "🏃",
-              path: "/alongamentos",
+              path: "/alongamento",
               desc: "Exercícios simples para soltar o corpo no trabalho.",
             },
             {
@@ -135,7 +135,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Notícias */}
+      
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
