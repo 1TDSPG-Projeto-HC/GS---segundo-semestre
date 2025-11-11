@@ -9,7 +9,8 @@ import Faq from './pages/Faq'
 import Integrantes from './pages/Integrantes'
 import Header from './components/Header'
 import Footer from './components/Footer'
-import Alongamento from './pages/Alongamento' 
+import Alongamento from './pages/Alongamento'
+import Dicas from './pages/Dicas' 
 
 export default function App() {
   return (
@@ -24,7 +25,8 @@ export default function App() {
           <Route path='/faq' element={<Faq />} />
           <Route path="/respiracao" element={<Respiracao />} />
           <Route path='/integrantes' element={<Integrantes />} />
-          <Route path='/alongamento' element={<Alongamento />} /> 
+          <Route path='/alongamento' element={<Alongamento />} />
+          <Route path='/dicas' element={<Dicas />} /> 
         </Routes>
       </main>
       <Footer />
