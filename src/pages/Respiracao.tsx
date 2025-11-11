@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Respiracao() {
   type Fase = "inicio" | "inspire" | "segure" | "expire" | "finalizado";
@@ -7,7 +8,6 @@ export default function Respiracao() {
   const [tempoRestante, setTempoRestante] = useState(0);
   const [cicloAtual, setCicloAtual] = useState(0);
   const [totalCiclos, setTotalCiclos] = useState(3);
-
   const [inspireTempo, setInspireTempo] = useState(4);
   const [segureTempo, setSegureTempo] = useState(4);
   const [expireTempo, setExpireTempo] = useState(4);
@@ -23,35 +23,24 @@ export default function Respiracao() {
     totalCiclosRef.current = totalCiclos;
   }, [fase, cicloAtual, totalCiclos]);
 
-  const duracaoPorFase = (f: Fase) => {
-    if (f === "inspire") return inspireTempo;
-    if (f === "segure") return segureTempo;
-    if (f === "expire") return expireTempo;
-    return 0;
-  };
+  const duracaoPorFase = (f: Fase) =>
+    f === "inspire" ? inspireTempo : f === "segure" ? segureTempo : f === "expire" ? expireTempo : 0;
 
-  function iniciarSessao() {
+  const iniciarSessao = () => {
     setCicloAtual(1);
     setFase("inspire");
     setTempoRestante(inspireTempo);
     setEmExecucao(true);
-  }
+  };
 
-  function pausarSessao() {
-    setEmExecucao(false);
-  }
-
-  function retomarSessao() {
-    if (fase === "inicio") return;
-    setEmExecucao(true);
-  }
-
-  function pararSessao() {
+  const pausarSessao = () => setEmExecucao(false);
+  const retomarSessao = () => fase !== "inicio" && setEmExecucao(true);
+  const pararSessao = () => {
     setEmExecucao(false);
     setFase("inicio");
     setTempoRestante(0);
     setCicloAtual(0);
-  }
+  };
 
   function avancarFaseAtual() {
     const f = faseRef.current;
@@ -90,23 +79,69 @@ export default function Respiracao() {
     return () => clearInterval(tick);
   }, [emExecucao, inspireTempo, segureTempo, expireTempo]);
 
-  return (
-    <div>
-      <h1>Respiração Guiada</h1>
-      <p>Fase atual: {fase}</p>
-      <p>Tempo restante: {tempoRestante}s</p>
-      <p>
-        Ciclo {cicloAtual} de {totalCiclos}
-      </p>
+  const duracaoAtual = duracaoPorFase(fase);
+  const progresso =
+    fase === "inicio" || duracaoAtual === 0
+      ? 0
+      : Math.round(((duracaoAtual - tempoRestante) / duracaoAtual) * 100);
 
-      {!emExecucao && fase !== "finalizado" && (
-        <button onClick={iniciarSessao}>Iniciar</button>
-      )}
-      {emExecucao && <button onClick={pausarSessao}>Pausar</button>}
-      {!emExecucao && fase !== "inicio" && fase !== "finalizado" && (
-        <button onClick={retomarSessao}>Retomar</button>
-      )}
-      <button onClick={pararSessao}>Parar</button>
+  return (
+    <div className="flex flex-col items-center gap-6 p-6">
+      <motion.div
+        key={fase}
+        animate={{
+          scale:
+            fase === "inspire"
+              ? [1, 1.25]
+              : fase === "segure"
+              ? [1.25, 1.25]
+              : fase === "expire"
+              ? [1.25, 1]
+              : [1, 1],
+        }}
+        transition={{ duration: Math.max(1, duracaoAtual), ease: "easeInOut" }}
+        className="w-40 h-40 bg-indigo-500/30 rounded-full flex items-center justify-center"
+      >
+        <div className="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+          {fase === "inicio" ? "Pronto" : fase === "finalizado" ? "Concluído" : `${tempoRestante}s`}
+        </div>
+      </motion.div>
+
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={fase + tempoRestante}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0 }}
+          className="text-lg font-medium"
+        >
+          {fase === "inspire" && "Inspire profundamente"}
+          {fase === "segure" && "Segure o ar"}
+          {fase === "expire" && "Solte devagar"}
+          {fase === "inicio" && "Clique em Iniciar para começar"}
+          {fase === "finalizado" && "Sessão finalizada!"}
+        </motion.p>
+      </AnimatePresence>
+
+      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+        <motion.div
+          style={{ width: `${progresso}%` }}
+          className="h-full bg-indigo-500 rounded-full transition-all"
+        />
+      </div>
+
+      <div className="flex gap-3">
+        {!emExecucao && fase !== "finalizado" && (
+          <button onClick={iniciarSessao} className="btn-primary">
+            Iniciar
+          </button>
+        )}
+        {emExecucao && <button onClick={pausarSessao}>Pausar</button>}
+        {!emExecucao && fase !== "inicio" && fase !== "finalizado" && (
+          <button onClick={retomarSessao}>Retomar</button>
+        )}
+        <button onClick={pararSessao}>Parar</button>
+      </div>
     </div>
   );
 }
