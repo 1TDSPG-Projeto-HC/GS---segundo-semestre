@@ -1,12 +1,24 @@
-# 🧠 MindWork
+# MindWork — Frontend Moderno
 
-Plataforma de bem-estar no trabalho — projeto base com React + Vite + TypeScript + TailwindCSS.
+Protótipo frontend do MindWork (bem-estar no trabalho).
 
-## 🚀 Como iniciar
+## Como rodar
+
+1. Instale dependências:
 
 ```bash
 npm install
+```
+
+2. Rode em desenvolvimento:
+
+```bash
 npm run dev
 ```
 
-Depois acesse: [http://localhost:5173](http://localhost:5173)
+Abra http://localhost:5173
+
+## Tecnologias
+- React + Vite + TypeScript
+- TailwindCSS 3.3.3
+- Framer Motion
