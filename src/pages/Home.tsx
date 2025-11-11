@@ -18,7 +18,7 @@ export default function Home() {
     const fetchNoticias = async () => {
       try {
         const response = await fetch(
-          "https://newsdata.io/api/1/news?apikey=pub_24d84a29c37348a588580b1fb3f86df6&q=trabalho%20carreira%20empresa&language=pt"
+          "https://newsdata.io/api/1/news?apikey=pub_24d84a29c37348a588580b1fb3f86df6&q=bem-estar%20no%20trabalho&language=pt"
         );
         const data = await response.json();
 
@@ -40,7 +40,7 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 px-6 py-10">
-      {/* Hero principal */}
+      {/* Hero */}
       <motion.section
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
@@ -52,10 +52,11 @@ export default function Home() {
               MindWork
             </h1>
             <p className="mt-3 text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              O MindWork é uma plataforma que conecta tecnologia e bem-estar no
-              ambiente de trabalho, promovendo equilíbrio emocional, produtividade e motivação.
+              Bem-vindo ao <strong>MindWork</strong> — sua plataforma de
+              equilíbrio e bem-estar no ambiente profissional. Encontre momentos
+              de pausa, foco e energia para trabalhar melhor e viver com mais leveza.
             </p>
-            <div className="mt-5 flex gap-4">
+            <div className="mt-5 flex gap-4 flex-wrap">
               <Link
                 to="/checkin"
                 className="px-5 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition"
@@ -70,45 +71,81 @@ export default function Home() {
               </Link>
             </div>
           </div>
+
           <div className="flex-1 bg-indigo-100 dark:bg-gray-800 rounded-xl p-6 text-center shadow-inner">
             <h2 className="font-semibold text-lg text-indigo-700 dark:text-indigo-300">
-              💡 Curiosidade
+              💡 Dica rápida
             </h2>
             <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Empresas que priorizam o bem-estar têm 23% mais produtividade e 41% menos absenteísmo.
+              Pausas curtas a cada 90 minutos aumentam em até 30% o foco e reduzem o estresse.
             </p>
           </div>
         </div>
       </motion.section>
 
-      {/* Cards informativos */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
-          <h3 className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
-            🌱 Missão
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mt-2">
-            Promover saúde mental e equilíbrio entre vida pessoal e profissional
-            por meio de acompanhamento diário e insights personalizados.
-          </p>
-        </div>
-        <div className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
-          <h3 className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
-            🧩 Tecnologias
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mt-2">
-            Feito com React, TypeScript e TailwindCSS. Interface moderna, fluida
-            e totalmente responsiva.
-          </p>
-        </div>
-        <div className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition">
-          <h3 className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
-            🎯 ODS
-          </h3>
-          <p className="text-gray-700 dark:text-gray-300 mt-2">
-            Alinhado ao ODS 3 (Saúde e Bem-Estar) e ODS 8 (Trabalho Decente e
-            Crescimento Econômico).
-          </p>
+      {/* Atividades */}
+      <section>
+        <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
+          💼 Atividades de Bem-Estar no Trabalho
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              title: "Respiração para Foco",
+              emoji: "🧘",
+              path: "/respiracao",
+              desc: "Acalme-se e recupere a concentração em minutos.",
+            },
+            {
+              title: "Pausa Sonora",
+              emoji: "🎧",
+              path: "/sons",
+              desc: "Relaxe com sons que aliviam o estresse durante o expediente.",
+            },
+            {
+              title: "Reflexão Rápida",
+              emoji: "💭",
+              path: "/reflexao",
+              desc: "Pare por um momento e reorganize seus pensamentos.",
+            },
+            {
+              title: "Alongamento de Escrivaninha",
+              emoji: "🏃",
+              path: "/alongamentos",
+              desc: "Exercícios simples para soltar o corpo no trabalho.",
+            },
+            {
+              title: "Equilíbrio Mental",
+              emoji: "🌿",
+              path: "/dicas",
+              desc: "Dicas práticas para lidar com pressão e manter a calma.",
+            },
+            {
+              title: "Check-in de Humor",
+              emoji: "😊",
+              path: "/checkin",
+              desc: "Avalie como você está se sentindo hoje.",
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ y: -5, scale: 1.03 }}
+              className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition cursor-pointer"
+            >
+              <Link
+                to={item.path}
+                className="flex flex-col items-center text-center space-y-3"
+              >
+                <span className="text-4xl">{item.emoji}</span>
+                <span className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
+                  {item.title}
+                </span>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  {item.desc}
+                </p>
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -124,7 +161,9 @@ export default function Home() {
         </h2>
 
         {loading ? (
-          <p className="text-gray-600 dark:text-gray-400">Carregando notícias...</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Carregando notícias...
+          </p>
         ) : noticias.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {noticias.slice(0, 6).map((noticia, index) => (
