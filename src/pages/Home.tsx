@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { buscarNoticias } from "../api/noticias"; // ✅ nova importação
 
 interface Noticia {
   title: string;
   description: string;
-  link: string;
-  source_id: string;
-  image_url?: string;
+  url: string;
+  source: string;
+  image?: string;
 }
 
 export default function Home() {
@@ -15,27 +16,12 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchNoticias = async () => {
-      try {
-        const response = await fetch(
-          "https://newsdata.io/api/1/news?apikey=pub_24d84a29c37348a588580b1fb3f86df6&q=bem-estar%20no%20trabalho&language=pt"
-        );
-        const data = await response.json();
-
-        if (data.results && data.results.length > 0) {
-          setNoticias(data.results);
-        } else {
-          setNoticias([]);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar notícias:", error);
-        setNoticias([]);
-      } finally {
-        setLoading(false);
-      }
+    const carregarNoticias = async () => {
+      const data = await buscarNoticias();
+      setNoticias(data);
+      setLoading(false);
     };
-
-    fetchNoticias();
+    carregarNoticias();
   }, []);
 
   return (
@@ -166,18 +152,18 @@ export default function Home() {
           </p>
         ) : noticias.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {noticias.slice(0, 6).map((noticia, index) => (
+            {noticias.map((noticia, index) => (
               <motion.a
                 key={index}
-                href={noticia.link}
+                href={noticia.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ y: -5 }}
                 className="block rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all"
               >
-                {noticia.image_url && (
+                {noticia.image && (
                   <img
-                    src={noticia.image_url}
+                    src={noticia.image}
                     alt={noticia.title}
                     className="w-full h-48 object-cover"
                   />
@@ -191,7 +177,7 @@ export default function Home() {
                       "Clique para ler mais sobre essa notícia."}
                   </p>
                   <p className="mt-3 text-xs text-gray-400 italic">
-                    Fonte: {noticia.source_id || "Desconhecida"}
+                    Fonte: {noticia.source || "Desconhecida"}
                   </p>
                 </div>
               </motion.a>

@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Build
+dist/
+build/
+
+# Ambiente e credenciais
+.env
+.env.local
+.env.development.local
+.env.production.local
+.env.test.local
+
+# Logs e caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vscode/
+.DS_Store
+
+# Sistema
+*.log
