@@ -4,10 +4,12 @@ import Home from './pages/Home'
 import Checkin from './pages/Checkin'
 import Dashboard from './pages/Dashboard'
 import Sobre from './pages/Sobre'
+import Respiracao from './pages/Respiracao'
 import Faq from './pages/Faq'
 import Integrantes from './pages/Integrantes'
 import Header from './components/Header'
 import Footer from './components/Footer'
+
 
 export default function App() {
   return (
@@ -20,6 +22,7 @@ export default function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/sobre' element={<Sobre />} />
           <Route path='/faq' element={<Faq />} />
+          <Route path="/respiracao" element={<Respiracao />} />
           <Route path='/integrantes' element={<Integrantes />} />
         </Routes>
       </main>
