@@ -1,5 +1,4 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
 
 interface Dica {
   icone: string;
@@ -21,37 +20,42 @@ export default function EquilibrioMental() {
     { icone: "📅", titulo: "Organize Sua Rotina", descricao: "Planeje o dia com equilíbrio entre obrigações e descanso. A previsibilidade traz calma." },
   ];
 
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setShow(true), 100);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-slate-900 text-gray-900 dark:text-gray-100 flex flex-col items-center py-10 px-6 transition-colors duration-500">
-      <motion.header
-        initial={{ opacity: 0, y: -15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center mb-10"
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-slate-900 text-gray-900 dark:text-gray-100 flex flex-col items-center py-10 px-6 transition-colors duration-500 overflow-hidden">
+      
+      {/* Cabeçalho com efeito de surgir de cima */}
+      <header
+        className={`text-center mb-10 transform transition-all duration-700 ease-out ${
+          show ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
+        }`}
       >
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-          🧘 Equilíbrio Mental — <span className="text-indigo-600 dark:text-indigo-400">MindWork</span>
+          🧘 Equilíbrio Mental —{" "}
+          <span className="text-indigo-600 dark:text-indigo-400">MindWork</span>
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mt-3 text-base md:text-lg max-w-2xl mx-auto">
           Dicas práticas para aliviar o estresse, cultivar clareza e manter sua mente em harmonia durante o dia.
         </p>
-      </motion.header>
+      </header>
 
+      {/* Cards com efeito escadinha */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-5xl w-full">
         {dicas.map((dica, i) => (
-          <motion.div
+          <div
             key={i}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05, duration: 0.6 }}
-            whileHover={{
-              scale: 1.04,
-              boxShadow:
-                "0 0 14px rgba(255,255,255,0.25), 0 0 4px rgba(255,255,255,0.2)",
+            style={{
+              transitionDelay: `${i * 100}ms`, // efeito escadinha
             }}
-            className="relative flex flex-col items-center text-center p-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 hover:shadow-xl transition-all duration-150 ease-out"
+            className={`relative flex flex-col items-center text-center p-6 rounded-2xl border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 shadow-md transform transition-all duration-700 ease-out
+              ${show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
-            <div className="absolute inset-0 rounded-2xl pointer-events-none border border-transparent dark:border-white/10 border-black/10"></div>
             <div className="text-4xl mb-3">{dica.icone}</div>
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               {dica.titulo}
@@ -59,12 +63,20 @@ export default function EquilibrioMental() {
             <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               {dica.descricao}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      <footer className="mt-14 text-gray-600 dark:text-gray-400 text-sm border-t border-gray-300 dark:border-slate-700 pt-6 text-center w-full max-w-5xl">
-        Cultivar equilíbrio mental é um exercício diário de autocuidado 🌸
+      {/* Rodapé suave */}
+      <footer
+        className={`mt-14 text-gray-600 dark:text-gray-400 text-sm border-t border-gray-300 dark:border-slate-700 pt-6 text-center w-full max-w-5xl flex flex-col items-center gap-2 transform transition-all duration-700 ease-out ${
+          show ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+        }`}
+      >
+        <div className="relative flex h-4 w-4">
+          <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+        </div>
+        <p>Cultivar equilíbrio mental é um exercício diário de autocuidado 🌸</p>
       </footer>
     </div>
   );
