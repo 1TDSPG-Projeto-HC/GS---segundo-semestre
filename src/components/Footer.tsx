@@ -49,7 +49,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        
+       
         <div className="md:text-right">
           <h3 className="text-base font-semibold mb-3 text-gray-800 dark:text-gray-200">
             Conecte-se
@@ -57,7 +57,7 @@ export default function Footer() {
           <div className="flex md:justify-end gap-4 mt-2">
             
             <a
-              href="https://github.com/seuusuario"
+              href="https://github.com/1TDSPG-Projeto-HC/GS---segundo-semestre.git"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-full border border-gray-300 dark:border-gray-700 hover:bg-gray-900 hover:text-white dark:hover:bg-gray-700 transition-all"
