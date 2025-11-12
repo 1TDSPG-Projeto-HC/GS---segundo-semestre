@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 type Step = {
@@ -51,31 +50,45 @@ const EXERCISES: Exercise[] = [
     ],
   },
   {
-    id: "wrists",
-    title: "Punhos Ativos",
-    subtitle: "Ideal para quem digita muito",
-    emoji: "⌨️",
-    colorFrom: "from-yellow-400",
-    colorTo: "to-yellow-600",
-    recommended: "1–2 min",
+    id: "hands",
+    title: "Mãos e Punhos",
+    subtitle: "Solte a rigidez dos dedos",
+    emoji: "✋",
+    colorFrom: "from-yellow-500",
+    colorTo: "to-yellow-700",
+    recommended: "1–3 min",
     steps: [
-      { id: "w1", title: "Flexionar", description: "Puxe os dedos para baixo com a outra mão.", duration: 15, emoji: "👇" },
-      { id: "w2", title: "Estender", description: "Puxe os dedos para cima para alongar.", duration: 15, emoji: "👆" },
-      { id: "w3", title: "Girar Punhos", description: "Faça círculos com os punhos para ambos os lados.", duration: 20, emoji: "⭕" },
+      { id: "h1", title: "Abrir e Fechar", description: "Abra e feche as mãos lentamente.", duration: 15, emoji: "👋" },
+      { id: "h2", title: "Giro dos Punhos", description: "Faça círculos suaves com os punhos.", duration: 20, emoji: "🔄" },
+      { id: "h3", title: "Alongar Dedos", description: "Puxe cada dedo suavemente para trás.", duration: 15, emoji: "👉" },
     ],
   },
   {
-    id: "spine",
-    title: "Coluna Solta",
-    subtitle: "Melhora a postura e circulação",
-    emoji: "🪑",
+    id: "back",
+    title: "Coluna Ativa",
+    subtitle: "Desperte a mobilidade",
+    emoji: "🧍‍♂️",
     colorFrom: "from-green-500",
     colorTo: "to-green-700",
-    recommended: "2–4 min",
+    recommended: "3–5 min",
     steps: [
-      { id: "t1", title: "Torcer à Direita", description: "Gire o tronco suavemente para a direita.", duration: 25, emoji: "➡️" },
-      { id: "t2", title: "Torcer à Esquerda", description: "Repita o movimento para o outro lado.", duration: 25, emoji: "⬅️" },
-      { id: "t3", title: "Alongamento Lateral", description: "Incline o tronco com um braço sobre a cabeça.", duration: 20, emoji: "↕️" },
+      { id: "b1", title: "Alongar para Cima", description: "Erga os braços e alongue a coluna o máximo que puder.", duration: 20, emoji: "🙆‍♂️" },
+      { id: "b2", title: "Torção Lateral", description: "Gire o tronco para cada lado lentamente.", duration: 20, emoji: "↩️" },
+      { id: "b3", title: "Inclinar para Frente", description: "Curve-se até sentir o alongamento na lombar.", duration: 25, emoji: "🧎‍♂️" },
+    ],
+  },
+  {
+    id: "legs",
+    title: "Pernas Soltas",
+    subtitle: "Ative a circulação",
+    emoji: "🦵",
+    colorFrom: "from-red-500",
+    colorTo: "to-red-700",
+    recommended: "3–4 min",
+    steps: [
+      { id: "l1", title: "Elevar Joelhos", description: "Levante um joelho de cada vez, como marchando.", duration: 15, emoji: "🏃‍♂️" },
+      { id: "l2", title: "Alongar Panturrilhas", description: "Incline-se contra uma parede e empurre o calcanhar ao chão.", duration: 20, emoji: "🦶" },
+      { id: "l3", title: "Agachar Leve", description: "Faça agachamentos curtos e lentos.", duration: 25, emoji: "🧍‍♀️" },
     ],
   },
 ];
@@ -93,6 +106,7 @@ export default function Alongamentos() {
   const [time, setTime] = useState(selected.steps[0].duration);
   const [running, setRunning] = useState(false);
   const ref = useRef<number>();
+  const [emojiStyle, setEmojiStyle] = useState({ opacity: 1, transform: "translateX(0px)" });
 
   useEffect(() => {
     if (running) {
@@ -110,17 +124,20 @@ export default function Alongamentos() {
   }, [running, step, selected]);
 
   const next = () => {
+    animateEmoji();
     setStep(s => (s + 1) % selected.steps.length);
     setTime(selected.steps[(step + 1) % selected.steps.length].duration);
   };
 
   const prev = () => {
+    animateEmoji();
     setStep(s => (s === 0 ? selected.steps.length - 1 : s - 1));
     setTime(selected.steps[(step === 0 ? selected.steps.length - 1 : step - 1)].duration);
   };
 
   const reset = () => {
     setRunning(false);
+    animateEmoji();
     setStep(0);
     setTime(selected.steps[0].duration);
   };
@@ -128,27 +145,42 @@ export default function Alongamentos() {
   const increaseTime = () => setTime(t => t + 5);
   const decreaseTime = () => setTime(t => (t > 5 ? t - 5 : t));
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900 dark:from-gray-900 dark:to-slate-900 dark:text-gray-100 flex flex-col transition-colors duration-500">
+  const animateEmoji = () => {
+    let start: number | null = null;
+    const duration = 400;
+    const distance = 25;
+    const animate = (timestamp: number) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const opacity = progress;
+      const translate = distance * (1 - progress);
+      setEmojiStyle({
+        opacity,
+        transform: `translateX(-${translate}px)`,
+        transition: "none"
+      });
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    setEmojiStyle({ opacity: 0, transform: `translateX(-${distance}px)` });
+    requestAnimationFrame(animate);
+  };
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-slate-900 text-gray-900 dark:text-gray-100 flex flex-col transition-colors duration-700">
       
-      <motion.header
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="py-12 text-center px-4"
-      >
+      <header className="py-10 text-center px-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-2">
           🤸 Sessão de Alongamento — <span className="text-indigo-600 dark:text-indigo-400">MindWork</span>
         </h1>
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Série guiada de movimentos leves para ativar o corpo, reduzir o cansaço e renovar sua energia no dia a dia.
+          Série guiada de movimentos leves para ativar o corpo e renovar sua energia.
         </p>
-      </motion.header>
+      </header>
 
-      
       <main className="flex-grow max-w-6xl mx-auto w-full px-6 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <aside className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm dark:shadow-md flex flex-col transition-colors">
+        
+        {/* Lista lateral */}
+        <aside className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm dark:shadow-md flex flex-col">
           <div className="text-lg font-semibold mb-4">🏋️‍♀️ Exercícios</div>
           <div className="space-y-3 flex-1 overflow-y-auto">
             {EXERCISES.map(ex => (
@@ -159,6 +191,7 @@ export default function Alongamentos() {
                   setStep(0);
                   setTime(ex.steps[0].duration);
                   setRunning(false);
+                  animateEmoji();
                 }}
                 className={`w-full text-left p-3 rounded-xl transition-all ${
                   selectedId === ex.id
@@ -180,7 +213,8 @@ export default function Alongamentos() {
           </div>
         </aside>
 
-        <section className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-md flex flex-col transition-colors">
+        {/* Conteúdo principal */}
+        <section className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm dark:shadow-md flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -201,26 +235,19 @@ export default function Alongamentos() {
           </div>
 
           <div className="flex-1 flex flex-col justify-center items-center">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selected.steps[step].id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="text-center"
-              >
-                <div className="text-6xl mb-3">{selected.steps[step].emoji}</div>
-                <h3 className="text-xl font-semibold mb-2">{selected.steps[step].title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm max-w-md mx-auto">{selected.steps[step].description}</p>
-              </motion.div>
-            </AnimatePresence>
+            <div className="text-center">
+              <div className="text-6xl mb-3" style={emojiStyle}>
+                {selected.steps[step].emoji}
+              </div>
+              <h3 className="text-xl font-semibold mb-2">{selected.steps[step].title}</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm max-w-md mx-auto">
+                {selected.steps[step].description}
+              </p>
+            </div>
           </div>
 
           <div className="mt-6 flex justify-center items-center gap-4">
-            <button onClick={prev} className="px-4 py-2 rounded-md bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600">
-              ⬅️ Anterior
-            </button>
+            <button onClick={prev} className="px-4 py-2 rounded-md bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600">⬅️ Anterior</button>
             <button
               onClick={() => setRunning(r => !r)}
               className={`px-6 py-2 rounded-md font-semibold ${
@@ -229,18 +256,15 @@ export default function Alongamentos() {
             >
               {running ? "⏸️ Pausar" : "▶️ Iniciar"}
             </button>
-            <button onClick={next} className="px-4 py-2 rounded-md bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600">
-              Próximo ➡️
-            </button>
+            <button onClick={next} className="px-4 py-2 rounded-md bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600">Próximo ➡️</button>
           </div>
 
           <div className="mt-6">
             <div className="h-3 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-3 bg-green-400"
-                animate={{ width: `${((step + 1) / selected.steps.length) * 100}%` }}
-                transition={{ duration: 0.4 }}
-              />
+              <div
+                className="h-3 bg-green-400 transition-all duration-500"
+                style={{ width: `${((step + 1) / selected.steps.length) * 100}%` }}
+              ></div>
             </div>
             <div className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-right">
               Etapa {step + 1} de {selected.steps.length}
@@ -256,7 +280,7 @@ export default function Alongamentos() {
       </main>
 
       <footer className="text-center text-gray-500 dark:text-gray-400 text-sm py-6">
-        Alongamentos simples para pausas saudáveis — cuide do seu corpo 💆‍♂️
+        Alongamentos simples para pausas saudáveis 💆‍♂️
       </footer>
     </div>
   );

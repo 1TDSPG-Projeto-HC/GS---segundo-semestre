@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function Respiracao() {
   type Fase = "inicio" | "inspire" | "segure" | "expire" | "finalizado";
+
   const [fase, setFase] = useState<Fase>("inicio");
   const [tempoRestante, setTempoRestante] = useState(0);
   const [cicloAtual, setCicloAtual] = useState(0);
@@ -11,6 +11,7 @@ export default function Respiracao() {
   const [segureTempo, setSegureTempo] = useState(4);
   const [expireTempo, setExpireTempo] = useState(4);
   const [emExecucao, setEmExecucao] = useState(false);
+  const [progressoFase, setProgressoFase] = useState(0);
 
   const faseRef = useRef<Fase>(fase);
   const cicloRef = useRef<number>(cicloAtual);
@@ -38,6 +39,7 @@ export default function Respiracao() {
     setFase("inspire");
     setTempoRestante(inspireTempo);
     setEmExecucao(true);
+    setProgressoFase(0);
   }
 
   function pausarSessao() {
@@ -54,6 +56,7 @@ export default function Respiracao() {
     setFase("inicio");
     setTempoRestante(0);
     setCicloAtual(0);
+    setProgressoFase(0);
   }
 
   function avancarFaseAtual() {
@@ -71,12 +74,14 @@ export default function Respiracao() {
         setFase("finalizado");
         setEmExecucao(false);
         setTempoRestante(0);
+        setProgressoFase(0);
       } else {
         setCicloAtual((prev) => prev + 1);
         setFase("inspire");
         setTempoRestante(inspireTempo);
       }
     }
+    setProgressoFase(0);
   }
 
   useEffect(() => {
@@ -93,14 +98,39 @@ export default function Respiracao() {
     return () => clearInterval(tick);
   }, [emExecucao, inspireTempo, segureTempo, expireTempo]);
 
+  // controle suave da expansão conforme o tempo da fase
+  useEffect(() => {
+    if (!emExecucao) return;
+    const duracao = duracaoPorFase(fase);
+    if (duracao <= 0) return;
+
+    let start = Date.now();
+    const loop = () => {
+      if (!emExecucao) return;
+      const elapsed = (Date.now() - start) / 1000;
+      let p = Math.min(elapsed / duracao, 1);
+      if (fase === "expire") p = 1 - p;
+      if (fase === "segure") p = 1;
+      setProgressoFase(p);
+
+      if (elapsed < duracao && fase !== "finalizado") {
+        requestAnimationFrame(loop);
+      }
+    };
+    requestAnimationFrame(loop);
+  }, [fase, emExecucao]);
+
   const duracaoAtual = duracaoPorFase(fase);
   const progresso =
     fase === "inicio" || duracaoAtual === 0
       ? 0
       : Math.round(((duracaoAtual - tempoRestante) / duracaoAtual) * 100);
 
+  // 🔵 escala ajustada — bolinha base maior e variação mais sutil
+  const escalaBase = 1.0 + progressoFase * 0.25;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-900 text-gray-800 dark:text-gray-100 px-6 py-10 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white dark:from-gray-900 dark:to-gray-900 text-gray-800 dark:text-gray-100 px-6 py-10 flex flex-col items-center animate-fadeIn">
       <h1 className="text-4xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">
         🧘 Respiração Guiada — MindWork
       </h1>
@@ -110,29 +140,37 @@ export default function Respiracao() {
       </p>
 
       <div className="flex flex-col lg:flex-row gap-8 w-full max-w-5xl">
+        {/* Bloco principal */}
         <div className="flex-1 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg flex flex-col items-center">
           <div className="relative flex flex-col items-center justify-center mb-6">
-            <motion.div
-              key={fase}
-              animate={{
-                scale:
+            {/* 🎈 Bolinha com expansão controlada */}
+            <div
+              className="rounded-full flex items-center justify-center transition-colors ease-in-out"
+              style={{
+                width: "200px",
+                height: "200px",
+                transform: `scale(${escalaBase})`,
+                backgroundColor:
                   fase === "inspire"
-                    ? [1, 1.25]
+                    ? "rgba(99, 102, 241, 0.35)"
                     : fase === "segure"
-                    ? [1.25, 1.25]
+                    ? "rgba(99, 102, 241, 0.4)"
                     : fase === "expire"
-                    ? [1.25, 1]
-                    : [1, 1],
+                    ? "rgba(99, 102, 241, 0.25)"
+                    : "rgba(99, 102, 241, 0.3)",
                 boxShadow:
                   fase === "inspire"
-                    ? "0 10px 30px rgba(99,102,241,0.18)"
-                    : "0 8px 20px rgba(2,6,23,0.2)",
+                    ? "0 0 25px rgba(99,102,241,0.4)"
+                    : fase === "segure"
+                    ? "0 0 35px rgba(99,102,241,0.5)"
+                    : fase === "expire"
+                    ? "inset 0 0 15px rgba(99,102,241,0.3)"
+                    : "none",
+                transition: "background-color 0.5s ease",
               }}
-              transition={{ duration: Math.max(1, duracaoAtual), ease: "easeInOut" }}
-              className="w-44 h-44 md:w-52 md:h-52 bg-indigo-500/30 rounded-full flex items-center justify-center"
             >
               <div className="w-24 h-24 bg-indigo-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-xl font-semibold text-white">
+                <span className="text-lg font-semibold text-white">
                   {fase === "inicio"
                     ? "Pronto"
                     : fase === "finalizado"
@@ -140,29 +178,21 @@ export default function Respiracao() {
                     : `${tempoRestante}s`}
                 </span>
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={fase + String(tempoRestante)}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              className="text-2xl font-semibold text-indigo-700 dark:text-indigo-300 text-center mb-6"
-            >
-              {fase === "inspire" && "🌬 Inspire profundamente..."}
-              {fase === "segure" && "⏸ Segure o ar..."}
-              {fase === "expire" && "😮‍💨 Solte devagar..."}
-              {fase === "inicio" && "Clique em Iniciar para começar."}
-              {fase === "finalizado" && "Parabéns — sessão finalizada!"}
-            </motion.p>
-          </AnimatePresence>
+          <p className="text-2xl font-semibold text-indigo-700 dark:text-indigo-300 text-center mb-6">
+            {fase === "inspire" && "🌬 Inspire profundamente..."}
+            {fase === "segure" && "⏸ Segure o ar..."}
+            {fase === "expire" && "😮‍💨 Solte devagar..."}
+            {fase === "inicio" && "Clique em Iniciar para começar."}
+            {fase === "finalizado" && "Parabéns — sessão finalizada!"}
+          </p>
 
           <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden mb-6">
-            <motion.div
+            <div
               style={{ width: `${progresso}%` }}
-              className="h-full bg-indigo-500 rounded-full transition-all"
+              className="h-full bg-indigo-500 rounded-full transition-all duration-700"
             />
           </div>
 
@@ -213,10 +243,12 @@ export default function Respiracao() {
           </div>
         </div>
 
-        <div className="w-full lg:w-1/3 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg space-y-6">
+        {/* Configurações */}
+        <div className="w-full lg:w-1/3 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg space-y-6 animate-fadeIn animation-delay-300">
           <h2 className="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">
             ⚙️ Configurações
           </h2>
+
           <div>
             <label className="block mb-2 text-sm font-medium">
               Número de Ciclos: <span className="font-semibold">{totalCiclos}</span>
@@ -227,7 +259,7 @@ export default function Respiracao() {
               max={10}
               value={totalCiclos}
               onChange={(e) => setTotalCiclos(Number(e.target.value))}
-              className="w-full"
+              className="w-full accent-indigo-600"
             />
           </div>
           <div>
@@ -240,7 +272,7 @@ export default function Respiracao() {
               max={12}
               value={inspireTempo}
               onChange={(e) => setInspireTempo(Number(e.target.value))}
-              className="w-full"
+              className="w-full accent-indigo-600"
             />
           </div>
           <div>
@@ -253,7 +285,7 @@ export default function Respiracao() {
               max={12}
               value={segureTempo}
               onChange={(e) => setSegureTempo(Number(e.target.value))}
-              className="w-full"
+              className="w-full accent-indigo-600"
             />
           </div>
           <div>
@@ -266,7 +298,7 @@ export default function Respiracao() {
               max={12}
               value={expireTempo}
               onChange={(e) => setExpireTempo(Number(e.target.value))}
-              className="w-full"
+              className="w-full accent-indigo-600"
             />
           </div>
         </div>
