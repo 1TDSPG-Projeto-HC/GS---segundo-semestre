@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { buscarNoticias } from "../api/noticias"; 
+import { buscarNoticias } from "../api/noticias";
 
 interface Noticia {
   title: string;
@@ -26,13 +25,10 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 px-6 py-10">
-      
-      <motion.section
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-2xl p-8 bg-gradient-to-br from-indigo-50 to-white dark:from-gray-800 dark:to-gray-900 shadow-lg"
-      >
+      {/* Introdução */}
+      <section className="rounded-2xl p-8 bg-gradient-to-br from-indigo-50 to-white dark:from-gray-800 dark:to-gray-900 shadow-lg transition-all duration-500 hover:shadow-xl">
         <div className="flex flex-col md:flex-row items-center gap-6">
+          {/* Texto principal */}
           <div className="flex-1">
             <h1 className="text-4xl font-extrabold text-indigo-700 dark:text-indigo-300">
               MindWork
@@ -45,31 +41,34 @@ export default function Home() {
             <div className="mt-5 flex gap-4 flex-wrap">
               <Link
                 to="/checkin"
-                className="px-5 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition"
+                className="px-5 py-3 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition transform hover:scale-105"
               >
                 Fazer Check-in
               </Link>
               <Link
                 to="/sobre"
-                className="px-5 py-3 rounded-lg border border-indigo-400 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition"
+                className="px-5 py-3 rounded-lg border border-indigo-400 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition transform hover:scale-105"
               >
                 Saiba mais
               </Link>
             </div>
           </div>
 
+          {/* Dica rápida */}
           <div className="flex-1 bg-indigo-100 dark:bg-gray-800 rounded-xl p-6 text-center shadow-inner">
-            <h2 className="font-semibold text-lg text-indigo-700 dark:text-indigo-300">
-              💡 Dica rápida
-            </h2>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
-              Pausas curtas a cada 90 minutos aumentam em até 30% o foco e reduzem o estresse.
-            </p>
+            <div className="animate-pulse">
+              <h2 className="font-semibold text-lg text-indigo-700 dark:text-indigo-300">
+                💡 Dica rápida
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 mt-2">
+                Pausas curtas a cada 90 minutos aumentam em até 30% o foco e reduzem o estresse.
+              </p>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
 
-      
+      {/* Atividades */}
       <section>
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
           💼 Atividades de Bem-Estar no Trabalho
@@ -113,53 +112,46 @@ export default function Home() {
               desc: "Avalie como você está se sentindo hoje.",
             },
           ].map((item, index) => (
-            <motion.div
+            <Link
               key={index}
-              whileHover={{ y: -5, scale: 1.03 }}
-              className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition cursor-pointer"
+              to={item.path}
+              className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group"
             >
-              <Link
-                to={item.path}
-                className="flex flex-col items-center text-center space-y-3"
-              >
-                <span className="text-4xl">{item.emoji}</span>
+              <div className="flex flex-col items-center space-y-3">
+                <span className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                  {item.emoji}
+                </span>
                 <span className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
                   {item.title}
                 </span>
                 <p className="text-gray-600 dark:text-gray-400 text-sm">
                   {item.desc}
                 </p>
-              </Link>
-            </motion.div>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      
-      <motion.section
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="space-y-6"
-      >
+      {/* Notícias */}
+      <section className="space-y-6">
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-2">
           📰 Notícias sobre Trabalho e Bem-Estar
         </h2>
 
         {loading ? (
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600 dark:text-gray-400 animate-pulse">
             Carregando notícias...
           </p>
         ) : noticias.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {noticias.map((noticia, index) => (
-              <motion.a
+              <a
                 key={index}
                 href={noticia.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ y: -5 }}
-                className="block rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-md hover:shadow-xl transition-all"
+                className="block rounded-2xl overflow-hidden bg-white dark:bg-gray-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 {noticia.image && (
                   <img
@@ -180,7 +172,7 @@ export default function Home() {
                     Fonte: {noticia.source || "Desconhecida"}
                   </p>
                 </div>
-              </motion.a>
+              </a>
             ))}
           </div>
         ) : (
@@ -188,7 +180,7 @@ export default function Home() {
             Nenhuma notícia encontrada no momento.
           </p>
         )}
-      </motion.section>
+      </section>
     </div>
   );
 }
