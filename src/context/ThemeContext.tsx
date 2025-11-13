@@ -13,7 +13,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     try {
       const s = localStorage.getItem('theme') as Theme | null
       if (s) return s
-      // default to system preference
+      
       return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
     } catch { return 'light' }
   })

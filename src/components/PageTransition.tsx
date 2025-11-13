@@ -4,13 +4,6 @@ interface Props {
   children: React.ReactNode;
 }
 
-/**
- * Efeito de surgimento:
- * - O conteúdo aparece rapidamente (fade + leve subida)
- * - Ideal para páginas simples ou seções que entram com suavidade
- * - Sem framer-motion, só Tailwind e React
- */
-
 export default function PageAppear({ children }: Props) {
   const [show, setShow] = useState(false);
 

@@ -15,6 +15,7 @@ import Dicas from "./pages/Dicas";
 import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
+import Termos from "./pages/Termos";
 
 export default function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/termos" element={<Termos />} />
             <Route path="/respiracao" element={<Respiracao />} />
             <Route path="/reflexao" element={<Reflexao />} />
             <Route path="/integrantes" element={<Integrantes />} />
