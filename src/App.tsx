@@ -16,19 +16,20 @@ import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
 import Termos from "./pages/Termos";
+import Politica from "./pages/Politica";
 
 export default function App() {
   const location = useLocation();
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Cabeçalho fixo */}
+      
       <Header />
 
-      {/* Compensação exata da altura do header */}
+      
       <div className="pt-20" />
 
-      {/* Conteúdo com transição */}
+      
       <main className="flex-grow container-max px-6 pb-12">
         <PageTransition key={location.pathname}>
           <Routes location={location}>
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="/checkin" element={<Checkin />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/sobre" element={<Sobre />} />
+            <Route path="/politica" element={<Politica />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
