@@ -13,3 +13,8 @@ export interface TeamMember {
   linkedin: string;
   photo: string;
 }
+export interface UserRegisterPayload {
+  nome: string;
+  email: string;
+  senha: string;
+}
