@@ -119,7 +119,7 @@ export default function Login(): JSX.Element {
           <p className="text-center text-sm mt-4 text-gray-700 dark:text-gray-300">
             Não tem uma conta?{" "}
             <Link
-              to="/cadastro"
+              to="/register"
               className="text-indigo-600 dark:text-indigo-400 hover:underline"
             >
               Cadastrar-se
