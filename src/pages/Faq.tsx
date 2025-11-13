@@ -49,7 +49,7 @@ export default function Faq() {
   };
 
   const handleContactRedirect = () => {
-    navigate("/sobre");
+    navigate("/Contato");
   };
 
   return (
@@ -75,7 +75,7 @@ export default function Faq() {
                 onClick={() => toggleAnswer(index)}
                 className="flex justify-between items-center w-full text-left focus:outline-none"
                 aria-expanded={openIndex === index}
-                // ✅ corrigido
+                
                 aria-controls={`faq-answer-${index}`}
               >
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
@@ -91,7 +91,7 @@ export default function Faq() {
               </button>
 
               <div
-                // ✅ corrigido
+                
                 id={`faq-answer-${index}`}
                 className={`grid transition-all duration-500 ease-in-out ${
                   openIndex === index
@@ -120,7 +120,7 @@ export default function Faq() {
             onClick={handleContactRedirect}
             className="px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-all shadow-md hover:shadow-lg"
           >
-            Ir para Sobre
+            Falar com a Equipe
           </button>
         </div>
       </div>

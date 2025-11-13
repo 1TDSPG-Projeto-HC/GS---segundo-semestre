@@ -5,7 +5,7 @@ export default function PoliticaPrivacidade() {
   const navigate = useNavigate();
 
   const handleRedirect = () => {
-    navigate("/sobre");
+    navigate("/Contato");
   };
 
   const handleBackToHome = () => {

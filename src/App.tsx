@@ -17,6 +17,7 @@ import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
 import Termos from "./pages/Termos";
 import Politica from "./pages/Politica";
+import Contato from "./pages/Contato";
 
 export default function App() {
   const location = useLocation();
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/sobre" element={<Sobre />} />
             <Route path="/politica" element={<Politica />} />
+            <Route path="/contato" element={<Contato />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

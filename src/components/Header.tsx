@@ -10,7 +10,7 @@ export default function Header() {
       <div className="backdrop-blur-md bg-white/70 dark:bg-gray-900/70 border-b border-gray-200 dark:border-gray-800">
         <div className="container-max px-6 py-4 flex items-center justify-between">
           
-          
+          {/* Logo e título */}
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white font-bold shadow-md">
               MW
@@ -25,7 +25,7 @@ export default function Header() {
             </div>
           </Link>
 
-          
+          {/* Navegação */}
           <nav className="flex items-center gap-4">
             <Link to="/" className="text-sm hover:text-indigo-500 transition">
               Home
@@ -42,8 +42,11 @@ export default function Header() {
             <Link to="/faq" className="text-sm hover:text-indigo-500 transition">
               FAQ
             </Link>
+            <Link to="/contato" className="text-sm hover:text-indigo-500 transition">
+              Contato
+            </Link>
 
-            
+            {/* Botão de alternar tema */}
             <button
               onClick={toggle}
               aria-label="Alternar tema claro/escuro"
@@ -52,7 +55,7 @@ export default function Header() {
               {theme === "light" ? "🌙" : "☀️"}
             </button>
 
-            
+            {/* Botão de login */}
             <Link
               to="/login"
               className="ml-3 px-4 py-2 rounded-md font-medium text-sm 
