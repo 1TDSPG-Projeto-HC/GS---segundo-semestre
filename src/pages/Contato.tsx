@@ -1,16 +1,16 @@
 import React from "react";
 
-export default function Integrantes() {
+export default function Contato() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-16 text-center space-y-6">
       
       <h1 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 animate-fadeIn">
-        👷‍♂️ Página em Desenvolvimento
+        📞 Página em Desenvolvimento
       </h1>
 
       
       <p className="text-gray-700 dark:text-gray-400 text-lg animate-fadeIn animation-delay-300">
-        Em breve você poderá conhecer os integrantes da equipe MindWork aqui!
+        Em breve você poderá entrar em contato com a equipe MindWork por aqui!
       </p>
 
       
