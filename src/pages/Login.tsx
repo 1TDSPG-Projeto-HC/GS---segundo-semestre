@@ -58,13 +58,16 @@ export default function Login(): JSX.Element {
         "
       >
         <h2 className="text-3xl font-bold text-center mb-6">
-          Bem-vindo de volta 👋
+          Bem-vindo
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Email */}
+
           <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-slate-700 dark:text-white mb-1"
+            >
               E-mail
             </label>
             <input
@@ -72,9 +75,9 @@ export default function Login(): JSX.Element {
               type="email"
               {...register("email")}
               className="
-                w-full px-3 py-2 rounded-md border-none 
-                bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                focus:outline-none focus:ring-2 focus:ring-indigo-500
+                w-full px-3 py-2 rounded-md border-2 border-indigo-400
+                bg-white text-gray-900
+                focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600
               "
             />
             {errors.email && (
@@ -82,9 +85,11 @@ export default function Login(): JSX.Element {
             )}
           </div>
 
-          {/* Senha */}
           <div>
-            <label htmlFor="senha" className="block text-sm font-medium mb-1">
+            <label
+              htmlFor="senha"
+              className="block text-sm font-medium text-slate-700 dark:text-white mb-1"
+            >
               Senha
             </label>
             <input
@@ -92,9 +97,9 @@ export default function Login(): JSX.Element {
               type="password"
               {...register("senha")}
               className="
-                w-full px-3 py-2 rounded-md border-none
-                bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                focus:outline-none focus:ring-2 focus:ring-indigo-500
+                w-full px-3 py-2 rounded-md border-2 border-indigo-400
+                bg-white text-gray-900
+                focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600
               "
             />
             {errors.senha && (
@@ -102,7 +107,6 @@ export default function Login(): JSX.Element {
             )}
           </div>
 
-          {/* Botão */}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -115,7 +119,6 @@ export default function Login(): JSX.Element {
             {isSubmitting ? "Entrando..." : "Entrar"}
           </button>
 
-          {/* Link cadastro */}
           <p className="text-center text-sm mt-4 text-gray-700 dark:text-gray-300">
             Não tem uma conta?{" "}
             <Link
