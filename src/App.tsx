@@ -12,6 +12,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Alongamento from "./pages/Alongamento";
 import Dicas from "./pages/Dicas";
+import Sonoros from "./pages/Sonoros";
 import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
@@ -41,6 +42,7 @@ export default function App() {
             <Route path="/politica" element={<Politica />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/faq" element={<Faq />} />
+            <Route path="/sonoros" element={<Sonoros />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/termos" element={<Termos />} />

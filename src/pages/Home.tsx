@@ -84,7 +84,7 @@ export default function Home() {
             {
               title: "Pausa Sonora",
               emoji: "🎧",
-              path: "/sons",
+              path: "/Sonoros",
               desc: "Relaxe com sons que aliviam o estresse durante o expediente.",
             },
             {
