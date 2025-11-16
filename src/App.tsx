@@ -17,6 +17,7 @@ import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
 import Termos from "./pages/Termos";
+import Metas from "./pages/Metas";
 import Politica from "./pages/Politica";
 import Contato from "./pages/Contato";
 
@@ -46,6 +47,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/termos" element={<Termos />} />
+            <Route path="/metas" element={<Metas />} />
             <Route path="/respiracao" element={<Respiracao />} />
             <Route path="/reflexao" element={<Reflexao />} />
             <Route path="/integrantes" element={<Integrantes />} />
