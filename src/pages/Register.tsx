@@ -100,7 +100,7 @@ const Register: React.FC = () => {
           </h1>
 
           <p className="text-center text-slate-500 dark:text-slate-300 text-sm mb-8 leading-relaxed">
-            Bem-vindo(a) ao MindWork 👋
+            Bem-vindo(a) ao MindWork
             <br />
             Preencha os dados para se cadastrar.
           </p>

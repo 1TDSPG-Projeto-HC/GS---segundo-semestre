@@ -76,19 +76,19 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Link
-            to="/minhas-atividades"
+            to="/Dashboard"
             className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl 
                        hover:-translate-y-1 transition-all duration-300 text-center group"
           >
             <div className="flex flex-col items-center space-y-3">
               <span className="text-4xl transition-transform duration-300 group-hover:scale-110">
-                📋
+                ✔️
               </span>
               <span className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
-                Minhas Atividades
+                Meus checkins
               </span>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                Veja todas as atividades que você já realizou.
+                Veja todos os seus checkins
               </p>
             </div>
           </Link>
