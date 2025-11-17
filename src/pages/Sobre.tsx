@@ -1,10 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Sobre() {
   return (
     <main className="min-h-screen w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 py-24 px-6 md:px-12 flex flex-col items-center">
       
-      {/* BLOCO 1 — Cabeçalho */}
       <section className="w-full max-w-5xl space-y-6 text-center mb-20">
         <h1 className="text-5xl font-extrabold tracking-tight text-indigo-600 dark:text-indigo-400">
           Sobre o MindWork
@@ -16,7 +16,6 @@ export default function Sobre() {
         </p>
       </section>
 
-      {/* BLOCO 2 — Missão, Visão e Valores */}
       <section className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
         <div className="bg-gray-50 dark:bg-gray-800 p-8 rounded-3xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
           <h2 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">🌿 Missão</h2>
@@ -47,7 +46,6 @@ export default function Sobre() {
         </div>
       </section>
 
-      {/* BLOCO 3 — Tecnologia e ODS */}
       <section className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
         <div className="bg-gray-50 dark:bg-gray-800 p-10 rounded-3xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
           <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">💻 Tecnologia</h3>
@@ -74,7 +72,6 @@ export default function Sobre() {
         </div>
       </section>
 
-      {/* BLOCO 4 — Impacto */}
       <section className="w-full max-w-5xl bg-gray-50 dark:bg-gray-800 p-12 rounded-3xl mb-20 transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
         <h3 className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-6 text-center">📊 Impacto Esperado</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
@@ -93,7 +90,6 @@ export default function Sobre() {
         </div>
       </section>
 
-      {/* BLOCO 5 — Equipe */}
       <section className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 mb-20">
         <div className="bg-gray-50 dark:bg-gray-800 p-10 rounded-3xl transition-all duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
           <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-3">👥 Nossa Equipe</h3>
@@ -113,14 +109,15 @@ export default function Sobre() {
         </div>
       </section>
 
-      {/* BLOCO 6 — Chamada Final */}
       <section className="w-full max-w-5xl text-center">
         <h4 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-4">
           Pronto para conhecer o MindWork mais de perto?
         </h4>
-        <button className="px-10 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg transition-all duration-300 hover:scale-105">
-          Conheça nossa equipe →
-        </button>
+        <Link to="/integrantes">
+          <button className="px-10 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-lg transition-all duration-300 hover:scale-105">
+            Conheça nossa equipe →
+          </button>
+        </Link>
       </section>
     </main>
   );
