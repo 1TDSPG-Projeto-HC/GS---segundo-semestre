@@ -25,10 +25,10 @@ export default function Home() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-10 px-6 py-10">
-      {/* Introdução */}
+      
       <section className="rounded-2xl p-8 bg-gradient-to-br from-indigo-50 to-white dark:from-gray-800 dark:to-gray-900 shadow-lg transition-all duration-500 hover:shadow-xl">
         <div className="flex flex-col md:flex-row items-center gap-6">
-          {/* Texto principal */}
+          
           <div className="flex-1">
             <h1 className="text-4xl font-extrabold text-indigo-700 dark:text-indigo-300">
               MindWork
@@ -54,7 +54,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Dica rápida */}
+          
           <div className="flex-1 bg-indigo-100 dark:bg-gray-800 rounded-xl p-6 text-center shadow-inner">
             <div className="animate-pulse">
               <h2 className="font-semibold text-lg text-indigo-700 dark:text-indigo-300">
@@ -68,7 +68,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Atividades */}
+      
+      <section>
+        <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
+          🧰 Minhas Ferramentas
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <Link
+            to="/Dashboard"
+            className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl 
+                       hover:-translate-y-1 transition-all duration-300 text-center group"
+          >
+            <div className="flex flex-col items-center space-y-3">
+              <span className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                ✔️
+              </span>
+              <span className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
+                Meus checkins
+              </span>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Veja todos os seus checkins
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            to="/metas"
+            className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl 
+                       hover:-translate-y-1 transition-all duration-300 text-center group"
+          >
+            <div className="flex flex-col items-center space-y-3">
+              <span className="text-4xl transition-transform duration-300 group-hover:scale-110">
+                🎯
+              </span>
+              <span className="font-semibold text-indigo-600 dark:text-indigo-300 text-lg">
+                Minhas Metas
+              </span>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Acompanhe seu progresso e objetivos pessoais.
+              </p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       <section>
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
           💼 Atividades de Bem-Estar no Trabalho
@@ -84,7 +128,7 @@ export default function Home() {
             {
               title: "Pausa Sonora",
               emoji: "🎧",
-              path: "/sons",
+              path: "/Sonoros",
               desc: "Relaxe com sons que aliviam o estresse durante o expediente.",
             },
             {
@@ -115,7 +159,8 @@ export default function Home() {
             <Link
               key={index}
               to={item.path}
-              className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-center group"
+              className="rounded-xl p-6 bg-white dark:bg-gray-800 shadow-md hover:shadow-xl 
+                         hover:-translate-y-1 transition-all duration-300 text-center group"
             >
               <div className="flex flex-col items-center space-y-3">
                 <span className="text-4xl transition-transform duration-300 group-hover:scale-110">
@@ -133,7 +178,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Notícias */}
+      
       <section className="space-y-6">
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-2">
           📰 Notícias sobre Trabalho e Bem-Estar

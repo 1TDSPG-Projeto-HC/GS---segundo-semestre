@@ -1,4 +1,3 @@
-// src/pages/Register.tsx
 import React, { useState } from "react";
 import api from "../services/api";
 import type { UserRegisterPayload } from "../types";
@@ -40,9 +39,9 @@ const Register: React.FC = () => {
       return;
     }
 
-    if (form.senha.length < 6) {
+    if (form.senha.length < 8) {
       setTipoMensagem("error");
-      setMensagem("A senha deve ter pelo menos 6 caracteres.");
+      setMensagem("A senha deve ter pelo menos 8 caracteres.");
       return;
     }
 
@@ -61,7 +60,6 @@ const Register: React.FC = () => {
         senha: form.senha,
       };
 
-      // 🚨 Deixe esse endpoint igual ao do seu backend
       const response = await api.post("/api/usuarios/register", payload);
 
       if (response.status === 201 || response.status === 200) {
@@ -78,8 +76,6 @@ const Register: React.FC = () => {
         setMensagem("Não foi possível realizar o cadastro.");
       }
     } catch (error: any) {
-      console.error(error);
-
       const backendMessage: string =
         error?.response?.data?.message ||
         error?.response?.data?.erro ||
@@ -92,16 +88,19 @@ const Register: React.FC = () => {
     }
   }
 
+  const inputClass =
+    "w-full px-4 py-2.5 rounded-full border-2 border-indigo-400 bg-white text-sm text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600";
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center">
       <div className="w-full max-w-md px-4">
-        <div className="rounded-3xl shadow-[0_18px_55px_rgba(15,23,42,0.45)] p-8 sm:p-10  dark:bg-gray-800">
-          <h1 className="text-2xl sm:text-3xl font-bold text-center ">
+        <div className="rounded-3xl shadow-[0_18px_55px_rgba(15,23,42,0.45)] p-8 sm:p-10 bg-white dark:bg-gray-800">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 dark:text-white">
             Criar conta
           </h1>
 
-          <p className="text-center text-slate-500 text-sm mb-8 leading-relaxed">
-            Bem-vindo(a) ao{" MindWork 👋 "}
+          <p className="text-center text-slate-500 dark:text-slate-300 text-sm mb-8 leading-relaxed">
+            Bem-vindo(a) ao MindWork
             <br />
             Preencha os dados para se cadastrar.
           </p>
@@ -110,7 +109,7 @@ const Register: React.FC = () => {
             <div className="space-y-1">
               <label
                 htmlFor="nome"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-slate-700 dark:text-white"
               >
                 Nome completo
               </label>
@@ -120,14 +119,14 @@ const Register: React.FC = () => {
                 type="text"
                 value={form.nome}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-1">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-slate-700 dark:text-white"
               >
                 E-mail
               </label>
@@ -137,14 +136,14 @@ const Register: React.FC = () => {
                 type="email"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-1">
               <label
                 htmlFor="senha"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-slate-700 dark:text-white"
               >
                 Senha
               </label>
@@ -154,15 +153,14 @@ const Register: React.FC = () => {
                 type="password"
                 value={form.senha}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-
+                className={inputClass}
               />
             </div>
 
             <div className="space-y-1">
               <label
                 htmlFor="confirmaSenha"
-                className="block text-sm font-medium text-white"
+                className="block text-sm font-medium text-slate-700 dark:text-white"
               >
                 Confirmar senha
               </label>
@@ -172,7 +170,7 @@ const Register: React.FC = () => {
                 type="password"
                 value={form.confirmaSenha}
                 onChange={handleChange}
-                className="w-full px-4 py-2.5 rounded-full border border-slate-200 bg-white text-sm text-slate-800 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={inputClass}
               />
             </div>
 
@@ -188,20 +186,18 @@ const Register: React.FC = () => {
           {mensagem && (
             <div
               className={`mt-4 text-center text-sm ${
-                tipoMensagem === "success"
-                  ? "text-green-600"
-                  : "text-red-600"
+                tipoMensagem === "success" ? "text-green-600" : "text-red-600"
               }`}
             >
               {mensagem}
             </div>
           )}
 
-          <p className="mt-6 text-center text-xs text-slate-500">
+          <p className="mt-6 text-center text-xs text-slate-500 dark:text-slate-300">
             Já tem uma conta?{" "}
             <a
               href="/login"
-              className="text-indigo-600 hover:underline font-medium"
+              className="text-indigo-600 dark:text-indigo-400 hover:underline font-medium"
             >
               Faça login
             </a>

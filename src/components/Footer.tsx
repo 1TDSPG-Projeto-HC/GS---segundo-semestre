@@ -32,7 +32,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                to="/privacidade"
+                to="/politica"
                 className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 Política de Privacidade
