@@ -16,6 +16,7 @@ import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
 import Termos from "./pages/Termos";
+import Contato from "./pages/Contato";
 
 export default function App() {
   const location = useLocation();
@@ -45,6 +46,7 @@ export default function App() {
             <Route path="/integrantes" element={<Integrantes />} />
             <Route path="/alongamento" element={<Alongamento />} />
             <Route path="/dicas" element={<Dicas />} />
+            <Route path="/contato" element={<Contato />} />
           </Routes>
         </PageTransition>
       </main>

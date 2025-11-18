@@ -40,7 +40,7 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                to="/contato"
+                to="/Contato"
                 className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               >
                 Contato
