@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Checkin from "./pages/Checkin";
 import Dashboard from "./pages/Dashboard";
 import Sobre from "./pages/Sobre";
+import Politica from "./pages/Politica";
 import Respiracao from "./pages/Respiracao";
 import Faq from "./pages/Faq";
 import Integrantes from "./pages/Integrantes";
@@ -16,6 +17,7 @@ import Sonoros from "./pages/Sonoros";
 import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
+import Termos from "./pages/Termos";
 
 import Metas from "./pages/Metas";
 
@@ -38,13 +40,13 @@ export default function App() {
             <Route path="/checkin" element={<Checkin />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/sobre" element={<Sobre />} />
-            
+            <Route path="/politica" element={<Politica />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/sonoros" element={<Sonoros />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-  
+            <Route path="/termos" element={<Termos />} />
             <Route path="/metas" element={<Metas />} />
             <Route path="/respiracao" element={<Respiracao />} />
             <Route path="/reflexao" element={<Reflexao />} />
