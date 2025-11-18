@@ -16,12 +16,9 @@ import Sonoros from "./pages/Sonoros";
 import Reflexao from "./pages/Reflexao";
 import PageTransition from "./components/PageTransition";
 import Register from "./pages/Register";
-import Termos from "./pages/Termos";
-<<<<<<< HEAD
-=======
+
 import Metas from "./pages/Metas";
-import Politica from "./pages/Politica";
->>>>>>> d7a1e000b4490a8ff81ecd69f88b7509943194c3
+
 import Contato from "./pages/Contato";
 
 export default function App() {
@@ -32,10 +29,8 @@ export default function App() {
       
       <Header />
 
-      
       <div className="pt-20" />
 
-      
       <main className="flex-grow container-max px-6 pb-12">
         <PageTransition key={location.pathname}>
           <Routes location={location}>
@@ -43,13 +38,13 @@ export default function App() {
             <Route path="/checkin" element={<Checkin />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/sobre" element={<Sobre />} />
-            <Route path="/politica" element={<Politica />} />
+            
             <Route path="/contato" element={<Contato />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/sonoros" element={<Sonoros />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/termos" element={<Termos />} />
+  
             <Route path="/metas" element={<Metas />} />
             <Route path="/respiracao" element={<Respiracao />} />
             <Route path="/reflexao" element={<Reflexao />} />
