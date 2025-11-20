@@ -89,6 +89,24 @@ DELETE /api/elemento/{id}
 
 ---
 
+
+# 🔗 Links Importantes
+
+🌐 Deploy — Vercel
+Acesse o projeto online:
+
+
+▶️ Vídeo de Apresentação — YouTube
+Assista ao vídeo:
+
+
+📁 Repositório — GitHub
+Repositório oficial:
+
+
+
+---
+
 # 👥 Equipe MindWork
 
 Formada por estudantes apaixonados por **design, tecnologia e impacto social**, acreditamos que inovação e empatia caminham lado a lado.
