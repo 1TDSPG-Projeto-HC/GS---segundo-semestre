@@ -28,7 +28,27 @@ const Register: React.FC = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
+  // ✅ Gera username a partir do email (mais único que pelo nome)
+  function gerarUsername(email: string, nome: string): string {
+    const baseFromEmail = email.split("@")[0] || "";
+    const limpoEmail = baseFromEmail
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9._-]/g, ""); // remove caracteres estranhos
+    
+    if (limpoEmail) return limpoEmail;
+
+    // fallback pelo nome
+    return nome
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "")
+      .replace(/[^a-z0-9._-]/g, "");
+  }
+
+  async function handleSubmit(
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> {
     e.preventDefault();
     setMensagem("");
     setTipoMensagem("");
@@ -54,13 +74,18 @@ const Register: React.FC = () => {
     setLoading(true);
 
     try {
-      const payload: UserRegisterPayload = {
-        nome: form.nome,
-        email: form.email,
+      const emailLimpo = form.email.toLowerCase().trim();
+
+      // ✅ payload completo pro backend
+      const payload: UserRegisterPayload & { username: string } = {
+        nome: form.nome.trim(),
+        email: emailLimpo,
         senha: form.senha,
+        username: gerarUsername(emailLimpo, form.nome),
       };
 
-      const response = await api.post("/api/usuarios/register", payload);
+      // ✅ rota correta (baseURL deve estar com /api)
+      const response = await api.post("/usuarios/register", payload);
 
       if (response.status === 201 || response.status === 200) {
         setTipoMensagem("success");
@@ -83,6 +108,7 @@ const Register: React.FC = () => {
 
       setTipoMensagem("error");
       setMensagem(backendMessage);
+      console.error(error);
     } finally {
       setLoading(false);
     }

@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
-import type { TipoUser } from "../../types/tipoUsuario";
-
-const API_URL = import.meta.env.VITE_API_URL_USUARIOS;
+import api from "../services/api";
 
 const loginSchema = z.object({
   email: z.string().email("Insira um e-mail válido."),
@@ -27,24 +25,29 @@ export default function Login(): JSX.Element {
 
   const onSubmit = async (data: LoginInput) => {
     try {
-      const response = await fetch(API_URL);
-      if (!response.ok) throw new Error("Erro ao buscar usuários");
+      const payload = {
+        email: data.email.toLowerCase().trim(),
+        senha: data.senha,
+      };
 
-      const usuarios: TipoUser[] = await response.json();
-      const usuarioValido = usuarios.find(
-        (u) =>
-          u.email === data.email.toLowerCase().trim() && u.senha === data.senha
-      );
+      // ✅ usa o endpoint certo do backend
+      const response = await api.post("/auth/login", payload);
 
-      if (usuarioValido) {
-        localStorage.setItem("usuarioLogado", JSON.stringify(usuarioValido));
-        navigate("/");
-      } else {
-        alert("Credenciais inválidas.");
-        reset();
-      }
-    } catch (error) {
-      alert("Erro: " + error);
+      // backend retorna LoginResponseDTO
+      const usuarioLogado = response.data;
+
+      localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
+      navigate("/");
+    } catch (error: any) {
+      console.error(error);
+
+      const msg =
+        error?.response?.data?.message ||
+        error?.response?.data?.erro ||
+        "Credenciais inválidas.";
+
+      alert(msg);
+      reset();
     }
   };
 
@@ -57,12 +60,9 @@ export default function Login(): JSX.Element {
           shadow-lg
         "
       >
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Bem-vindo
-        </h2>
+        <h2 className="text-3xl font-bold text-center mb-6">Bem-vindo</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-
           <div>
             <label
               htmlFor="email"
