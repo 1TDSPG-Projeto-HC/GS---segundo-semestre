@@ -96,8 +96,13 @@ DELETE /api/elemento/{id}
 Acesse o projeto online:
 
 
+
 ▶️ Vídeo de Apresentação — YouTube
 Assista ao vídeo:
+
+
+▶️ Vídeo pitch - YouTube
+Assista ao vídeo: https://youtu.be/UwYWtK1p12c?si=omg6ap1LmpioecOchttps://youtu.be/UwYWtK1p12c?si=omg6ap1LmpioecOc
 
 
 📁 Repositório — GitHub
