@@ -1,12 +1,13 @@
-import { api } from "./api";
+import api from "./api";
+
 
 export type LoginDTO = {
   username: string;
   senha: string;
 };
 
-export async function login(data: LoginDTO) {
-  const res = await api.post("/auth/login", data);
-  return res.data; 
+export async function login(form: LoginDTO) {
+  const {data} = await api.post("/auth/login", form);
+  return data; 
 
 }

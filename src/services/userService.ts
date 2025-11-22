@@ -1,4 +1,5 @@
-import { api } from "./api";
+import api from "./api";
+
 
 export type UserRegisterDTO = {
   nome: string;
@@ -7,17 +8,17 @@ export type UserRegisterDTO = {
   senha: string;
 };
 
-export async function registerUser(data: UserRegisterDTO) {
-  const res = await api.post("/usuarios/register", data);
-  return res.data;
+export async function registerUser(form: UserRegisterDTO) {
+  const {data} = await api.post("/usuarios/register", form);
+  return data;
 }
 
 export async function listUsers() {
-  const res = await api.get("/usuarios");
-  return res.data;
+  const {data} = await api.get("/usuarios");
+  return data;
 }
 
 export async function findUserById(id: number) {
-  const res = await api.get(`/usuarios/${id}`);
-  return res.data;
+  const {data} = await api.get(`/usuarios/${id}`);
+  return data;
 }

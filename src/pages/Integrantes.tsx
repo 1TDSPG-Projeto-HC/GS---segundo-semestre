@@ -16,7 +16,7 @@ const integrantes: Integrante[] = [
     turma: "1TDSPG",
     foto: "assets/Alexandre.png",
     github: "https://github.com/KiuboHIrata",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/alexandre-junior-b6a06a356",
   },
   {
     nome: "Pedro Vaz Ferreira",
