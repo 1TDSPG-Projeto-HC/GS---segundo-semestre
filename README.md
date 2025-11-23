@@ -106,7 +106,7 @@ Assista ao vídeo: https://youtu.be/UwYWtK1p12c?si=omg6ap1LmpioecOchttps://youtu
 
 
 📁 Repositório — GitHub
-Repositório oficial:
+Repositório oficial: https://github.com/1TDSPG-Projeto-HC/GS---segundo-semestre.git
 
 
 
