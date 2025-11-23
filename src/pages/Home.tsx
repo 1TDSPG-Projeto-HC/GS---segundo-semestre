@@ -118,7 +118,7 @@ export default function Home() {
           💼 Atividades de Bem-Estar no Trabalho
         </h2>
 
-        {/* AGORA SÃO 5 ITENS (SEM PAUSA SONORA) — GRADE SEMPRE FICA 3 EM CIMA / 2 EM BAIXO */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
@@ -177,7 +177,7 @@ export default function Home() {
       
       <section className="space-y-6">
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 flex items-center gap-2">
-          📰 Notícias sobre Trabalho e Bem-Estar
+          📰 Ultimas Notícias
         </h2>
 
         {loading ? (
