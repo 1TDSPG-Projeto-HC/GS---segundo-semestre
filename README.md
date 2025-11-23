@@ -93,7 +93,7 @@ DELETE /api/elemento/{id}
 # 🔗 Links Importantes
 
 🌐 Deploy — Vercel
-Acesse o projeto online:
+Acesse o projeto online: gs-segundo-semestre-six.vercel.app
 
 
 
