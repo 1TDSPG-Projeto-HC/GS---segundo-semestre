@@ -117,6 +117,8 @@ export default function Home() {
         <h2 className="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">
           💼 Atividades de Bem-Estar no Trabalho
         </h2>
+
+        {/* AGORA SÃO 5 ITENS (SEM PAUSA SONORA) — GRADE SEMPRE FICA 3 EM CIMA / 2 EM BAIXO */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
@@ -124,12 +126,6 @@ export default function Home() {
               emoji: "🧘",
               path: "/respiracao",
               desc: "Acalme-se e recupere a concentração em minutos.",
-            },
-            {
-              title: "Pausa Sonora",
-              emoji: "🎧",
-              path: "/Sonoros",
-              desc: "Relaxe com sons que aliviam o estresse durante o expediente.",
             },
             {
               title: "Reflexão Rápida",
