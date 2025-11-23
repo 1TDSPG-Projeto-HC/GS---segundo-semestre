@@ -5,13 +5,6 @@ node_modules/
 dist/
 build/
 
-# Ambiente e credenciais
-.env
-.env.local
-.env.development.local
-.env.production.local
-.env.test.local
-
 # Logs e caches
 npm-debug.log*
 yarn-debug.log*

@@ -6,26 +6,29 @@ export interface Noticia {
   image?: string;
 }
 
-const API_KEY = import.meta.env.VITE_GNEWS_API_KEY;
-const BASE_URL = "https://gnews.io/api/v4/top-headlines";
-
 export async function buscarNoticias(): Promise<Noticia[]> {
+  const API_KEY = import.meta.env.VITE_NEWSDATA_API_KEY;
+
   try {
     const response = await fetch(
-      `${BASE_URL}?lang=pt&country=br&max=6&apikey=${API_KEY}`
+      `https://newsdata.io/api/1/news?apikey=${API_KEY}&country=br&language=pt&category=business,technology,top`
     );
 
     const data = await response.json();
 
-    if (!data.articles || data.articles.length === 0) return [];
+    if (!data.results || data.results.length === 0) return [];
 
-    return data.articles.map((item: any) => ({
+    const noticias = data.results.map((item: any) => ({
       title: item.title,
       description: item.description,
-      url: item.url,
-      source: item.source?.name || "Desconhecida",
-      image: item.image,
+      url: item.link,
+      source: item.source_id || "Desconhecida",
+      image: item.image_url,
     }));
+
+    
+    return noticias.slice(0, 6);
+
   } catch (error) {
     console.error("Erro ao buscar notícias:", error);
     return [];
