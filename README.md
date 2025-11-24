@@ -98,7 +98,7 @@ Acesse o projeto online: gs-segundo-semestre-six.vercel.app
 
 
 ▶️ Vídeo de Apresentação — YouTube
-Assista ao vídeo:
+Assista ao vídeo: https://youtu.be/2fNUCcUGMjc?si=tT9F_4UuvbTPhjNm
 
 
 ▶️ Vídeo pitch - YouTube
